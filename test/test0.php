@@ -1,4 +1,3 @@
-# Mini-Boutique
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
 $filePath = 'testfile.csv';
 $file = fopen($filePath, 'r');
 $test =true;
-$categories=['dressCat'];
+$categories=['dressCat','pcCat','pantsCat'];
 
 
 if ($file === false) {
@@ -24,31 +23,26 @@ if ($file === false) {
     while (($row = fgetcsv($file)) !== false) {
         if($test){
             // display column headers as the first row
-            echo "<thead>";
-            echo "<tr>";
-
-            foreach ($row as $value) {
-                echo "<th>".$value."</th>";
-            }
-            echo "</tr>";
-
-            echo "</thead>\n";
+           
             $test=false;
             continue;
         }
-        echo "<tr>";
-        // echo json_encode($row[3]);
-        // if($row[3] === $categories[0]){
+        echo "\t".$row[3];
+        echo json_encode($row[3]);
+        foreach($categories as $category){
+            if($row[3] === $category){
         
-            foreach ($row as $index => $cell ) {
-           
-                if ($index === 0 && !empty($cell)) { // Assuming the image URL is in the 4th column (index 3)
-                    echo "<td><img src='" . htmlspecialchars($cell) . "' alt='Image'></td>";
-                } else {
-                    echo "<td>" . htmlspecialchars($cell) . "</td>";
+                foreach ($row as $index => $cell ) {
+               
+                    if ($index === 0 && !empty($cell)) { // Assuming the image URL is in the 4th column (index 3)
+                        echo "<td><img src='" . htmlspecialchars($cell) . "' alt='Image'></td>";
+                    } else {
+                        echo "<td>" . htmlspecialchars($cell) . "</td>";
+                    }
                 }
-            // }
+            }
         }
+       
        
         echo "</tr>";
     }
